@@ -2,26 +2,22 @@ import java.text.*;
 import java.util.*;
 
 public class MiniLiquidation {
-  public enum AcctType {
-        FIFO,
-        LIFO
-    }
 
+    public Account acct;
     HashMap<String, Trade> trades = new HashMap<>();
     HashMap<String, Valuation> valuations = new HashMap<>();
-    HashMap<String, List<Position>> positions = new HashMap<>();
-    HashMap<String, AcctType> accounts = new HashMap<>();
-    HashMap<String, HashMap<String, List<Share>>> portfolio = new HashMap<>();
-
-    Scanner scan = new Scanner(System.in);
-
-
+    HashMap<Account, List<Position>> positions = new HashMap<>();
+    // HashMap<String, AcctType> accounts = new HashMap<>();
+    HashMap<Account, HashMap<String, List<Share>>> portfolio = new HashMap<>();
+    static public HashMap<String, Account> accounts = new HashMap<>();
+    public Scanner scan;
+    // public MiniLiquidation()
 
     class MarketPrice {
         double price;
         String date;
     }
-
+    
 
 
     class Valuation {
@@ -36,10 +32,10 @@ public class MiniLiquidation {
         System.out.print("input new trade?: ");
         String s = scan.nextLine();
         if (s.equals("Yes")) {
-            System.out.print("What account?: ");
-            String acct = scan.nextLine();
-            if (!accounts.containsKey(acct))
-              accounts.put(acct, AcctType.FIFO);
+            // System.out.print("What account?: ");
+            // String acct = scan.nextLine();
+            // if (!accounts.containsKey(acct))
+            //   accounts.put(acct, AcctType.FIFO);
             System.out.print("input ticker: ");
             String ticker = scan.nextLine();            
             System.out.print("input Date: ");
@@ -78,7 +74,7 @@ public class MiniLiquidation {
                 while (qty > 0) {
                   System.out.println("qty: "  + qty);
                     List<Share> list = portfolio.get(acct).get(ticker);
-                    if (accounts.get(acct) == AcctType.FIFO) {
+                    if (accounts.get(acct).type == AcctType.FIFO) {
                         int temp = qty;
                         qty = Math.max(0, qty - list.get(0).qty);
                         list.get(0).qty = Math.max(0, list.get(0).qty - temp);
@@ -87,7 +83,7 @@ public class MiniLiquidation {
                             list.remove(0);
                         
                     }
-                    else if (accounts.get(acct) == AcctType.LIFO) {
+                    else if (accounts.get(acct).type == AcctType.LIFO) {
                         int temp = qty;
                         int len = list.size();
                         qty = Math.max(0, qty - list.get(len-1).qty);
@@ -106,7 +102,7 @@ public class MiniLiquidation {
         }        
     }
 
-    int getQty(String acct, String ticker, String date) {
+    int getQty(Account acct, String ticker, String date) {
         int sum = 0;
         List<Share> list = portfolio.get(acct).get(ticker);
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -130,7 +126,7 @@ public class MiniLiquidation {
         return sum;
     }
 
-    double getAvgCost(String acct, String ticker, String date) {
+    double getAvgCost(Account acct, String ticker, String date) {
         double cost = 0.0;
         int sum = 0;
         List<Share> list = portfolio.get(acct).get(ticker);
@@ -167,8 +163,8 @@ public class MiniLiquidation {
         System.out.print("display positions?: ");
         String s = scan.nextLine();
         if (s.equals("Yes")) {
-            System.out.print("What account?: ");
-            String acct = scan.nextLine();
+            // System.out.print("What account?: ");
+            // String acct = scan.nextLine();
             List<Position> list = positions.get(acct);
             for (Position p : list) {
                 System.out.println("Stock: " + p.ticker);
