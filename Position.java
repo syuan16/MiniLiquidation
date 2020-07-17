@@ -1,13 +1,13 @@
 import java.util.*;
 
 public  class Position {
-        String acct;
+        Account acct;
         String ticker;
         String date;
         int qty;
         double avgCost;
         double realized_GL;
-        public Position(String acct, String ticker, String date, int qty, double avgCost, double realized_GL) {
+        public Position(Account acct, String ticker, String date, int qty, double avgCost, double realized_GL) {
             this.acct = acct;
             this.ticker = ticker;
             this.qty = qty;
