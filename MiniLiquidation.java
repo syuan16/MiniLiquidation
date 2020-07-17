@@ -5,28 +5,14 @@ public class MiniLiquidation {
 
     public Account acct;
     HashMap<String, Trade> trades = new HashMap<>();
-    HashMap<String, Valuation> valuations = new HashMap<>();
+    // HashMap<String, Valuation> valuations = new HashMap<>();
     HashMap<Account, List<Position>> positions = new HashMap<>();
+    HashMap<Account, List<Valuation>> valuations = new HashMap<>();
     // HashMap<String, AcctType> accounts = new HashMap<>();
     HashMap<Account, HashMap<String, List<Share>>> portfolio = new HashMap<>();
     static public HashMap<String, Account> accounts = new HashMap<>();
     public Scanner scan;
     // public MiniLiquidation()
-
-    class MarketPrice {
-        double price;
-        String date;
-    }
-    
-
-
-    class Valuation {
-        String ticker;
-        String date;
-        double unrealized_GL;
-        double MarketValue;
-        double price;
-    }
 
     void inputTrade() {
         System.out.print("input new trade?: ");
@@ -72,9 +58,10 @@ public class MiniLiquidation {
             else {
                 double realized = 0.0;
                 while (qty > 0) {
-                  System.out.println("qty: "  + qty);
+                  // System.out.println("qty: "  + qty);
                     List<Share> list = portfolio.get(acct).get(ticker);
-                    if (accounts.get(acct).type == AcctType.FIFO) {
+                    // if ()
+                    if (acct.type == AcctType.FIFO) {
                         int temp = qty;
                         qty = Math.max(0, qty - list.get(0).qty);
                         list.get(0).qty = Math.max(0, list.get(0).qty - temp);
@@ -83,7 +70,7 @@ public class MiniLiquidation {
                             list.remove(0);
                         
                     }
-                    else if (accounts.get(acct).type == AcctType.LIFO) {
+                    else if (acct.type == AcctType.LIFO) {
                         int temp = qty;
                         int len = list.size();
                         qty = Math.max(0, qty - list.get(len-1).qty);
@@ -133,7 +120,8 @@ public class MiniLiquidation {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
         for (Share share : list) {
-          
+          // System.out.println("Account: " + acct.acctName);
+          // System.out.println("price " + share.price);
           Date date1;
           Date date2;
           try {

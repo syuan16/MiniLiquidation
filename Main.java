@@ -17,7 +17,7 @@ public class Main {
         System.out.print("please enter your account: ");
         String handle = scan.nextLine();
         if (!accounts.containsKey(handle)) {
-          System.out.println("please enter your liquidation: ");
+          System.out.print("please enter your liquidation: ");
           String liquid = scan.nextLine();
           AcctType type = AcctType.FIFO;
           switch (liquid) {
@@ -36,11 +36,8 @@ public class Main {
         while (true) {
             program.inputTrade();
             System.out.println();
-            System.out.println();
-            System.out.println();
+
             program.displayPosition();
-            System.out.println();
-            System.out.println();
             System.out.println();
         }
 	}
