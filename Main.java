@@ -13,7 +13,7 @@ public class Main {
         System.out.println("Hello Mini Liquidation!");
         MiniLiquidation program = new MiniLiquidation();
         program.scan = scan;
-        
+      
         System.out.print("please enter your account: ");
         String handle = scan.nextLine();
         if (!accounts.containsKey(handle)) {
@@ -37,7 +37,7 @@ public class Main {
             program.inputTrade();
             System.out.println();
 
-            program.displayPosition();
+            program.display();
             System.out.println();
         }
 	}
